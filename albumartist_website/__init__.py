@@ -83,24 +83,19 @@ class AlbumArtistWebsite:
         """Queue a track for website fetching and make webservice request if needed."""
         if self.website_queue.append(artistId, (track, album)):
             # This is the first track requesting this artist's website
-            path = f"/ws/2/artist/{artistId}"
-            queryargs = {"inc": "url-rels"}
-            
             task_id = f"artist_website_{artistId}"
             self.api.add_album_task(
                 album,
                 task_id,
                 f"Fetching artist website for {artistId}",
-                request_factory=lambda: self.api.web_service.get(
-                    "musicbrainz.org",
-                    443,
-                    path,
+                request_factory=lambda: self.api.mb_api._get_by_id(
+                    'artist',
+                    artistId,
                     partial(self.website_process, artistId),
-                    parse_response_type="xml",
+                    inc=['url-rels'],
                     priority=True,
                     important=False,
-                    queryargs=queryargs,
-                    use_https=True
+                    parse_response_type='xml'
                 )
             )
 
