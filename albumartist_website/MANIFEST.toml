@@ -1,0 +1,10 @@
+uuid = "180b0573-58aa-4f79-977c-da49a6d21a1c"
+name = "Album Artist Website"
+authors = ["Sophist", "Sambhav Kothari", "Philipp Wolfer", "frcooper"]
+maintainers = ["frcooper"]
+version = "2.0.0"
+description = "Adds the album artist(s) official homepage(s) from MusicBrainz to the website tag"
+long_description = "This plugin retrieves the official homepage URLs for album artists from the MusicBrainz database and adds them to the 'website' tag of your music files. It queries the MusicBrainz database for artist information and extracts any 'official homepage' relationships that are not marked as ended."
+api = ["3.0"]
+license = "GPL-2.0-or-later"
+license_url = "https://www.gnu.org/licenses/gpl-2.0.html"
