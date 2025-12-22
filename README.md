@@ -2,6 +2,10 @@
 
 A plugin for [MusicBrainz Picard](https://picard.musicbrainz.org/) that automatically adds album artist(s) official homepage(s) from the MusicBrainz database to your music files.
 
+- Plugin name: Album Artist Website
+- Plugin version: 2.0.0
+- Picard plugin API: 3.0
+
 ## Description
 
 This plugin retrieves the official homepage URLs for album artists from MusicBrainz and adds them to the `website` tag of your music files. It queries the MusicBrainz database for artist information and extracts any "official homepage" relationships that are not marked as ended.
@@ -16,8 +20,8 @@ This plugin retrieves the official homepage URLs for album artists from MusicBra
 
 ## Installation
 
-1. Download the `albumartist_website` folder from this repository
-2. Copy the entire `albumartist_website` folder to your Picard plugins directory:
+1. Download this repository (or a release zip).
+2. Copy this plugin folder to your Picard plugins directory (it must contain `__init__.py` and `MANIFEST.toml`):
    - **Windows**: `%APPDATA%\MusicBrainz\Picard\plugins3\`
    - **macOS**: `~/.config/MusicBrainz/Picard/plugins3/`
    - **Linux**: `~/.config/MusicBrainz/Picard/plugins3/`
@@ -27,6 +31,7 @@ This plugin retrieves the official homepage URLs for album artists from MusicBra
 ## Supported Picard Versions
 
 This plugin is compatible with:
+
 - **Picard 3.0** and later
 - **Plugin API version**: 3.0
 
@@ -68,7 +73,8 @@ All MusicBrainz webservice queries are performed asynchronously using Picard's a
 
 ## Credits
 
-**Original Authors**: 
+**Original Authors**:
+
 - Sophist
 - Sambhav Kothari
 - Philipp Wolfer
@@ -91,12 +97,23 @@ This program is free software; you can redistribute it and/or modify it under th
 
 ## Development
 
+### Shared environment
+
+These plugins are intended to be developed using the same Python environment as Picard itself.
+
+- Create Picard's venv in the Picard repo (recommended path: `../picard/.venv`).
+- This repo's VS Code settings point at that interpreter and add `f:/repos/picard` to analysis paths.
+
+### Running tests
+
+- `python -m unittest discover -s tests -p "test*.py" -v`
+
 This plugin uses Picard 3.x's plugin API with the following key components:
 
 ### Plugin Structure
 
 - **MANIFEST.toml**: Contains plugin metadata (name, version, authors, API versions, etc.)
-- **__init__.py**: Main plugin code with `enable()` and `disable()` entry points
+- ****init**.py**: Main plugin code with `enable()` and `disable()` entry points
 
 ### Implementation Details
 
@@ -111,3 +128,15 @@ The plugin:
 7. Completes album tasks via `api.complete_album_task()`
 
 The implementation uses Python's `threading.Lock` for thread-safe queue management and coordinates with Picard's album loading system through the task API.
+
+## Releasing
+
+This repository uses tags to publish releases. Creating a tag `vX.Y.Z` triggers a GitHub Action that creates a GitHub Release with notes listing all commits since the previous tag.
+
+To bump the version (updates `MANIFEST.toml` and this README), commit, tag, and push:
+
+- `python scripts/bump_version.py --bump patch`
+
+Or set an explicit version:
+
+- `python scripts/bump_version.py --new-version 2.0.0`
