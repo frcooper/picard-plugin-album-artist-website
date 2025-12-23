@@ -3,7 +3,7 @@
 A plugin for [MusicBrainz Picard](https://picard.musicbrainz.org/) that automatically adds album artist(s) official homepage(s) from the MusicBrainz database to your music files.
 
 - Plugin name: Album Artist Website
-- Plugin version: 2.0.1
+- Plugin version: 2.0.2
 - Picard plugin API: 3.0
 
 ## Description
